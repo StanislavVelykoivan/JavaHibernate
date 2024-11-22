@@ -1,8 +1,6 @@
 package velykoivanStanislav;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Users")
@@ -10,9 +8,13 @@ import jakarta.persistence.Table;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "user_name")
     private String name;
+
+    @Transient
     private String role;
 
 

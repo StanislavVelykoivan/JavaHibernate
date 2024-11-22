@@ -4,7 +4,9 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 
 public class Main {
@@ -21,21 +23,22 @@ public class Main {
         con.setProperty("hibernate.connection.username", dbUser);
         con.setProperty("hibernate.connection.password", dbPassword);
         con.setProperty("hibernate.dialect", dbDialect);
-        con.setProperty("hibernate.hbm2ddl.auto", "update");
+        con.setProperty("hibernate.hbm2ddl.auto", "create");
         con.setProperty("hibernate.show_sql", "true");
         con.setProperty("hibernate.format_sql", "true");
-        con.setProperty("hbm2ddl.auto", "update");
         con.addAnnotatedClass(User.class);
 
-        SessionFactory sf = con.buildSessionFactory();
+        ServiceRegistry reg =  new StandardServiceRegistryBuilder()
+                .applySettings(con.getProperties())
+                .build();
+        SessionFactory sf = con.buildSessionFactory(reg);
         Session session = sf.openSession();
 
         try {
 
             User user = new User();
-            user.setId(2);
-            user.setName("Oleg");
-            user.setRole("admin");
+            user.setName("Dima");
+            user.setRole("user");
 
             Transaction tx = session.beginTransaction();
 
