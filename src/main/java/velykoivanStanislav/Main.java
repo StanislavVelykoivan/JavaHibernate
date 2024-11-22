@@ -23,7 +23,7 @@ public class Main {
         con.setProperty("hibernate.connection.username", dbUser);
         con.setProperty("hibernate.connection.password", dbPassword);
         con.setProperty("hibernate.dialect", dbDialect);
-        con.setProperty("hibernate.hbm2ddl.auto", "create");
+        con.setProperty("hibernate.hbm2ddl.auto", "update");
         con.setProperty("hibernate.show_sql", "true");
         con.setProperty("hibernate.format_sql", "true");
         con.addAnnotatedClass(User.class);
@@ -37,16 +37,15 @@ public class Main {
         try {
 
             User user = new User();
-            user.setName("Dima");
-            user.setRole("user");
 
             Transaction tx = session.beginTransaction();
 
-            session.save(user);
+            user = (User) session.get(User.class,2);
+
 
             tx.commit();
 
-            System.out.println("User saved successfully!");
+            System.out.println(user.getName() +" "+ user.getRole());
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
