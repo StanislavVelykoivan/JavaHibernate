@@ -38,12 +38,17 @@ public class Main {
 
             User user = new User();
 
+            UserName userName = new UserName();
+            userName.setFirstName("Stanislav");
+            userName.setLastName("Velykoivan");
+            userName.setMiddleName("Volodymyrovych");
+
+            user.setRole("user");
+            user.setName(userName);
+
             Transaction tx = session.beginTransaction();
 
-            user = (User) session.get(User.class,2);
-
-
-            tx.commit();
+            session.save(user);
 
             System.out.println(user.getName() +" "+ user.getRole());
         } catch (Exception e) {
