@@ -50,7 +50,6 @@ public class Main {
 
             session.save(user);
 
-            System.out.println(user.getName() +" "+ user.getRole());
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
