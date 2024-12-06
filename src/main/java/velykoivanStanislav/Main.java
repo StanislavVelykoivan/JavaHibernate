@@ -23,10 +23,10 @@ public class Main {
         con.setProperty("hibernate.connection.username", dbUser);
         con.setProperty("hibernate.connection.password", dbPassword);
         con.setProperty("hibernate.dialect", dbDialect);
-        con.setProperty("hibernate.hbm2ddl.auto", "update");
+        con.setProperty("hibernate.hbm2ddl.auto", "create");
         con.setProperty("hibernate.show_sql", "true");
         con.setProperty("hibernate.format_sql", "true");
-        con.addAnnotatedClass(User.class);
+        con.addAnnotatedClass(Student.class).addAnnotatedClass(Laptop.class);
 
         ServiceRegistry reg =  new StandardServiceRegistryBuilder()
                 .applySettings(con.getProperties())
@@ -34,21 +34,21 @@ public class Main {
         SessionFactory sf = con.buildSessionFactory(reg);
         Session session = sf.openSession();
 
+
+        Laptop laptop = new Laptop();
+        laptop.setName("Dell");
+
+        Student student = new Student();
+        student.setMarks(67);
+        student.setName("Dima");
+        student.setLaptop(laptop);
         try {
+            session.beginTransaction();
+            session.save(laptop);
+            session.save(student);
+            session.getTransaction().commit();
 
-            User user = new User();
-
-            UserName userName = new UserName();
-            userName.setFirstName("Stanislav");
-            userName.setLastName("Velykoivan");
-            userName.setMiddleName("Volodymyrovych");
-
-            user.setRole("user");
-            user.setName(userName);
-
-            Transaction tx = session.beginTransaction();
-
-            session.save(user);
+            System.out.println(student.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
