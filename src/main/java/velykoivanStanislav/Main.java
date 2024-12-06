@@ -41,7 +41,9 @@ public class Main {
         Student student = new Student();
         student.setMarks(67);
         student.setName("Dima");
-        student.setLaptop(laptop);
+
+        student.getLaptop().add(laptop);
+        laptop.setStudent(student);
         try {
             session.beginTransaction();
             session.save(laptop);
