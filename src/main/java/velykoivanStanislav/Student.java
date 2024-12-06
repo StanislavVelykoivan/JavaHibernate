@@ -13,7 +13,7 @@ public class Student {
     private int id;
     private String name;
     private int marks;
-    @OneToMany(mappedBy = "student")
+    @ManyToMany(mappedBy = "student")
     private List<Laptop> laptop = new ArrayList<>();
 
     public List<Laptop> getLaptop() {

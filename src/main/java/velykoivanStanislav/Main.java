@@ -43,7 +43,7 @@ public class Main {
         student.setName("Dima");
 
         student.getLaptop().add(laptop);
-        laptop.setStudent(student);
+        laptop.getStudent().add(student);
         try {
             session.beginTransaction();
             session.save(laptop);
