@@ -37,8 +37,14 @@ public class Main {
         try {
 
             User user = new User();
-            user.setName("Dima");
             user.setRole("user");
+
+            UserName name = new UserName();
+            name.setFirstName("Stanislav");
+            name.setLastName("Velykoivan");
+            name.setMiddleName("Volodymyrovych");
+
+            user.setName(name);
 
             Transaction tx = session.beginTransaction();
 
